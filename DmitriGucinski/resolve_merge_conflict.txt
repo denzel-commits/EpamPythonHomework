@@ -42,7 +42,7 @@ git push -u origin develop-feature2
 11. Switch to develop;
 git checkout develop
 
-12  Merge the first branch and push changes;
+12.  Merge the first branch and push changes;
 git merge develop-feature
 git push -u origin develop
 
