@@ -1,5 +1,0 @@
-git pull
-vim text_file.txt # edit/resolve conflicting lines
-git add text_file.txt
-git commit -m "Update after conflict"
-git push origin develop
