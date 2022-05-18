@@ -3,7 +3,7 @@ from collections import deque
 class HistoryDict:
     _dictionary = {}
     _history_keys = []
-    _history_deque_keys = deque([],10)
+    _history_deque_keys = deque(maxlen=10)
     def __init__(self, dictionary):
         self._dictionary = dictionary
     
@@ -22,7 +22,7 @@ class HistoryDict:
         return self._history_keys
         
     def get_history_deque(self):
-        return (self._history_deque_keys)
+        return list(self._history_deque_keys)
         
 
 d = HistoryDict({"foo": 42})
