@@ -1,7 +1,9 @@
 import argparse
 import sys
+from http_client.http_client import HttpClient
 from rss_parser.rss_parser import RssParser
 from requests.exceptions import RetryError
+from utilities.logger import LogGen
 
 parser = argparse.ArgumentParser(description="Pure Python command-line RSS reader.")
 parser.add_argument("source", type=str, help="RSS URL")
@@ -20,14 +22,15 @@ print(args.limit.isdigit())
 # raise custom exception on page not accessible
 # raise custom exception on page is not rss
 
-parser = RssParser(args.verbose, args.limit, args.json)
+
+logger = LogGen.log_gen(args.verbose)
+client = HttpClient(args.source, logger)
+parser = RssParser(args.limit, args.json, logger)
+
 try:
-    parser.get_news(
-        parser.make_request(args.source)
-        )
+    client.make_request()
 except KeyboardInterrupt:
-    print("Shutdown requested...exiting")
+    logger.info("Shutdown requested...exiting")
 except RetryError as err:
-    print("Failed to open source url. {error}".format(error=err))
-    print("Please see if given url is correct or try again later")
+    logger.error("Failed to open source url, check if it is correct or try again later. {error}".format(error=err))
     sys.exit(1)
