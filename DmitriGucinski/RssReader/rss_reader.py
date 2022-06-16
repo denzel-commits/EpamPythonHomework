@@ -4,7 +4,7 @@ from http_client.http_client import HttpClient
 from rss_parser.rss_parser import RssParser
 from requests.exceptions import RetryError
 from utilities.validator import Validator
-from exceptions.limit_error_exception import LimitIsNotIntegerError, LimitIsNotPositiveError
+from exceptions.limit_error_exception import LimitIsNotIntegerError
 from utilities.logger import LogGen
 from utilities.read_properties import ReadConfig
 
@@ -31,8 +31,7 @@ def main():
         Validator.validate_limit(args.limit)
     except LimitIsNotIntegerError:
         logger.error("Limit is not integer, please provide integer value for limit")
-    except LimitIsNotPositiveError:
-        logger.error("Limit is negative, please provide positive value for limit")
+        sys.exit(1)
 
     try:
         response = client.make_request()
