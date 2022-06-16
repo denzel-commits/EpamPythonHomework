@@ -18,5 +18,6 @@ class HttpClient:
         retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
         http.mount('https://', HTTPAdapter(max_retries=retries))
 
-        response = http.get("https://httpstat.us/503")  # self.endpoint
-        self.response = response
+        response = http.get(self.endpoint)  # "https://httpstat.us/503" for unittest
+
+        return response
