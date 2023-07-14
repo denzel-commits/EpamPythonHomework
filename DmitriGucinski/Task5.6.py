@@ -2,10 +2,10 @@
 def call_once(func):
     '''runs a function or method once and caches the result. All consecutive calls to this function should return cached result no matter the arguments.'''
     cache = 0
-    def wrapper(a, b):
+    def wrapper(*args, **kwargs):
         nonlocal cache
         if not cache: 
-            cache = a + b        
+            cache = func(*args, **kwargs)        
         return cache
     return wrapper    
     
